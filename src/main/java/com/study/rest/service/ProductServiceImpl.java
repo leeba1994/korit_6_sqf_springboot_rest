@@ -1,9 +1,6 @@
 package com.study.rest.service;
 
-import com.study.rest.dto.CommonResponseDto;
-import com.study.rest.dto.ProductDto;
-import com.study.rest.dto.ReqProductDto;
-import com.study.rest.dto.SizeDto;
+import com.study.rest.dto.*;
 import com.study.rest.entity.Color;
 import com.study.rest.entity.Product;
 import com.study.rest.entity.Size;
@@ -20,6 +17,23 @@ public class ProductServiceImpl implements ProductService{
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Override
+    public CommonResponseDto registerColor(ColorDto.Register register) {
+        return CommonResponseDto.ofDefault(colorMapper.save(register.toEntity()));
+    }
+
+    @Override
+    public CommonResponseDto registerSize(ReqRegisterSizeDto reqRegisterSizeDto) {
+//        Size size = Size.builder()
+//                .sizeName(reqRegisterSizeDto.getSizeName())
+//                .build();
+//
+//        int successCount = sizeMapper.save(size);
+//        return CommonResponseDto.ofDefault(successCount);
+        return CommonResponseDto.ofDefault(sizeMapper.save(reqRegisterSizeDto.toEntity()));
+    }
+
     @Autowired
     private SizeMapper sizeMapper;
     @Autowired

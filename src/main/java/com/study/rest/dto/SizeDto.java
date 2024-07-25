@@ -4,6 +4,7 @@ import com.study.rest.entity.Size;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,12 @@ public class SizeDto {
     }
 
     public static List<Info> toList(List<Size> sizeList) {
-        return sizeList.stream().map(Size::toDto).collect(Collectors.toList());
+        List<Info> infos = new ArrayList<>();
+        for(Size size : sizeList) {
+            infos.add(size.toDto());
+        }
+        return infos;
+//        return sizeList.stream().map(Size::toDto).collect(Collectors.toList());
     }
 
 //    // 다건 조회
