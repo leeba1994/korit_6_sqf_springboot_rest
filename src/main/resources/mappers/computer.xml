@@ -10,12 +10,35 @@
         insert into computer_tb
         values(0, #{company}, #{cpu}, #{ram}, #{ssd})
     </insert>
+
+    <update id="update" parameterType="com.study.rest.entity.Computer">
+        update computer_tb
+        set
+            company = #{company},
+            cpu = #{cpu},
+            ram = #{ram},
+            ssd = #{ssd}
+        where
+            computerId = #{computerId}
+    </update>
+
+    <delete id="delete" parameterType="integer">
+        delete
+        from
+            computer_tb
+        where
+            computerId = #{id}
+    </delete>
+
     <select id="findComputerByCompanyAndCpu"
             parameterType="com.study.rest.entity.Computer"
             resultType="com.study.rest.entity.Computer">
         select
             computerId,
-            company
+            company,
+            cpu,
+            ram,
+            ssd
         from
             computer_tb
         where
@@ -23,5 +46,19 @@
             and cpu like concat("%", #{cpu}, "%")
         order by
             computerId
+    </select>
+    <select id="findComputerById"
+            parameterType="integer"
+            resultType="com.study.rest.entity.Computer">
+        select
+            computerId,
+            company,
+            cpu,
+            ram,
+            ssd
+        from
+            computer_tb
+        where
+            computerId = #{id}
     </select>
 </mapper>

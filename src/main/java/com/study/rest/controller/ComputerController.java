@@ -2,6 +2,7 @@ package com.study.rest.controller;
 
 import com.study.rest.dto.ReqGetListDto;
 import com.study.rest.dto.ReqRegisterComputerDto;
+import com.study.rest.dto.ReqUpdateComputerDto;
 import com.study.rest.service.ComputerServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,9 @@ public class ComputerController {
         return ResponseEntity.ok().body(computerServiceImpl.registerComputer(reqDto));
     }
 
-    public ResponseEntity<?> modifyApi() {
-        return ResponseEntity.ok().body(null);
+    @PutMapping("/computer/{computerId}")
+    public ResponseEntity<?> modifyApi(@PathVariable int computerId, @RequestBody ReqUpdateComputerDto reqDto) {
+        return ResponseEntity.ok().body(computerServiceImpl.updateComputer(reqDto));
     }
 
     @GetMapping("/computers")
@@ -32,13 +34,16 @@ public class ComputerController {
         log.info("{}", reqDto);
         return ResponseEntity.ok().body(computerServiceImpl.getComputerList(reqDto));
     }
-
-    public ResponseEntity<?> getApi() {
-        return ResponseEntity.ok().body(null);
+    //http://localhost:8080/api/v1/computer/3
+    @GetMapping("/computer/{computerId}")
+    public ResponseEntity<?> getApi(@PathVariable int computerId) {
+        log.info("{}", computerId);
+        return ResponseEntity.ok().body(computerServiceImpl.getComputer(computerId));
     }
 
-    public ResponseEntity<?> removeApi() {
-        return ResponseEntity.ok().body(null);
+    @DeleteMapping("/computer/{computerId}")
+    public ResponseEntity<?> removeApi(@PathVariable int computerId) {
+        return ResponseEntity.ok().body(computerServiceImpl.deleteComputer(computerId));
     }
 
 }
